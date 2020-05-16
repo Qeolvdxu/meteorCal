@@ -63,12 +63,13 @@ int main (int argc, char* argv[])
 
 			impactForce = keneticE / (distance - earthRadius);  // Calculate the force of impact the object has on the earths surface
 
-			//Display Information to Terminal
-			printf("mass: %.2fkg      distance: %.2fm       time: %.2fs      velocity: %.2fm/s      kenetic energy: %.2fj       acceleration: %.8fm/s\n", mass, distance - earthRadius, time, vel, keneticE, acceleration);
-
 			simTime++;  // increase simTime by one second
+			//Display Information to Terminal
+			printf("mass: %.2fkg      distance: %.2fm       time: %.2fs      velocity: %.2fm/s      kenetic energy: %.2fj       acceleration: %.8fm/s\n", mass, distance - earthRadius, simTime, vel, keneticE, acceleration);
+
 			system("sleep 1");
 			system("clear");
+
 	}
 
 		// Print out final results and stats

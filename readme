@@ -1,1 +1,11 @@
 A program to calculate data about a falling object on earth given a distance and mass
+
+To implement:
+Add option for diameter of the meteor
+Calculate the correct distance after impact due to with resistance
+Create better visuals
+calculate the crater of the meteor
+Implement the angle of the meteor
+Account for the atmosphere reducing the mass and diameter of the meteor
+Collect density information
+Allow user to enter diameter, density, and angle
