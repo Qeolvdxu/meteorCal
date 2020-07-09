@@ -1,4 +1,6 @@
-A program to calculate data about a falling object on earth given a distance and mass
+MeteorSim calculates user data for Meteors falling towards a planets surface. 
+The data output will be located in the same directory as the executable as output.txt
+
 
 To implement:
 Add option for diameter of the meteor
