@@ -5,9 +5,9 @@
 
 int main (int argc, char* argv[])
 {
-	if (argc != 4) // Force the user to add mass and distance arguments when they launch the program
+	if (argc != 5) // Force the user to add mass and distance arguments when they launch the program
 	{
-		printf("You must enter the Mass(kg), Fall Distance(m), and Velocity(m/2)\n Ex: meteorSim 10 100 20\n");	
+		printf("You must enter the Mass(kg), Fall Distance(m), velocity(m/2), radius (m)\n Ex: meteorSim 10 100 20\n");	
 		return 2; // return with error
 	} 
 
@@ -17,6 +17,13 @@ int main (int argc, char* argv[])
 	double mass = atof(argv[1]);// kilograms
 	const double earthMass = 5.972 * pow(10, 24);
 	const double earthRadius = 6370000;
+	const double earthCrustDensity = 2.83; // g/cm^3
+
+	double radius = atof(argv[4]);
+	double volume = 4/3 * 3.1459 * (radius*radius*radius); // Assuming meteor is sphere
+	double length = radius * 2;
+
+	double density = mass / volume;
 
 	double initDistance = atof(argv[2]) + earthRadius;  // meters
 	double distance = initDistance;
@@ -36,6 +43,7 @@ int main (int argc, char* argv[])
 	double gravityDifference = 0; //amount that will be subtracted from gravity
 
 	double impactForce = 0; // Newtons
+	double impactDepth = 0; // m
 
 	fprintf(output,"TIMELINE\n mass		distance	time	velocity	kenetic energy		acceleration\n");
 
@@ -55,6 +63,7 @@ int main (int argc, char* argv[])
 			distance = initDistance - (vel * simTime);  // Distance change to show the object falling
 
 			impactForce = keneticE / (distance - earthRadius);  // Calculate the force of impact the object has on the earths surface
+			impactDepth = (density / earthCrustDensity) * length;
 
 			simTime++;  // increase simTime by one second
 			//Display Information to Terminal
@@ -63,8 +72,7 @@ int main (int argc, char* argv[])
 
 		// Print out final results and stats
 		fprintf(output,"\n\nFINAL RESULTS\n");
-		fprintf(output," Impact Force: %.2f Newtons\n Distance: %.2f Meters\n Time: %.2f Seconds\n",impactForce, atof(argv[2]), simTime);
+		fprintf(output," Impact Force: %.2f Newtons\n Distance: %.2f Meters\n Time: %.2f Seconds\n Depth: %.2f\n",impactForce, atof(argv[2]), simTime, impactDepth);
 
 	fclose(output);
-	return 0;
-}
+	return 0; }
