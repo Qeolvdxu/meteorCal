@@ -3,24 +3,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void clear_screen()
-{
-#ifdef WINDOWS
-    system("cls");
-#else
-    // Assume POSIX
-    system ("clear");
-#endif
-}
-
 int main (int argc, char* argv[])
 {
-	if (argc != 3) // Force the user to add mass and distance arguments when they launch the program
+	if (argc != 4) // Force the user to add mass and distance arguments when they launch the program
 	{
-		printf("You must enter the Mass(kg) and Fall Distance(m)\n Ex: meteorSim 10 100\n");	
+		printf("You must enter the Mass(kg), Fall Distance(m), and Velocity(m/2)\n Ex: meteorSim 10 100 20\n");	
 		return 2; // return with error
 	} 
-	system("clear");
+
+	FILE *output = fopen("output.txt","w");
 
 	// Initialize and calculate variables
 	double mass = atof(argv[1]);// kilograms
@@ -30,7 +21,7 @@ int main (int argc, char* argv[])
 	double initDistance = atof(argv[2]) + earthRadius;  // meters
 	double distance = initDistance;
 
-	double initVel = 0;		// m/2
+	double initVel = atof(argv[3]);		// m/2
 	double vel = initVel;
 
 	double initTime = 0;	// seconds
@@ -45,6 +36,8 @@ int main (int argc, char* argv[])
 	double gravityDifference = 0; //amount that will be subtracted from gravity
 
 	double impactForce = 0; // Newtons
+
+	fprintf(output,"TIMELINE\n mass		distance	time	velocity	kenetic energy		acceleration\n");
 
 	// Drop point
 	acceleration = gravity;
@@ -65,15 +58,13 @@ int main (int argc, char* argv[])
 
 			simTime++;  // increase simTime by one second
 			//Display Information to Terminal
-			printf("mass: %.2fkg      distance: %.2fm       time: %.2fs      velocity: %.2fm/s      kenetic energy: %.2fj       acceleration: %.8fm/s\n", mass, distance - earthRadius, simTime, vel, keneticE, acceleration);
-
-			system("sleep 1");
-			system("clear");
-
+			fprintf(output," %.2fkg      %.2fm       %.2fs      %.2fm/s      %.2fj       %.8fm/s\n", mass, distance - earthRadius, simTime, vel, keneticE, acceleration);
 	}
 
 		// Print out final results and stats
-		printf("The object hit the ground with %.2f Newtons of impact force.\n",impactForce);
+		fprintf(output,"\n\nFINAL RESULTS\n");
+		fprintf(output," Impact Force: %.2f Newtons\n Distance: %.2f Meters\n Time: %.2f Seconds\n",impactForce, atof(argv[2]), simTime);
 
+	fclose(output);
 	return 0;
 }
