@@ -5,30 +5,35 @@
 
 int main (int argc, char* argv[])
 {
-	if (argc != 5) // Force the user to add mass and distance arguments when they launch the program
-	{
-		printf("You must enter the Mass(kg), Fall Distance(m), velocity(m/2), radius (m)\n Ex: meteorSim 10 100 20\n");	
-		return 2; // return with error
-	} 
-
 	FILE *output = fopen("output.txt","w");
 
-	// Initialize and calculate variables
-	double mass = atof(argv[1]);// kilograms
+	// Initialize, calculate, and collect variables
+	printf("Enter the mass of the Meteor in kg\n");
+	double mass;// kilograms
+	scanf("%lf",&mass);
 	const double earthMass = 5.972 * pow(10, 24);
 	const double earthRadius = 6370000;
 	const double earthCrustDensity = 2.83; // g/cm^3
 
-	double radius = atof(argv[4]);
+	int atmosphere = -1; //layers of atmosphere, 0 = Troposphere, 3 = Thermosphere
+
+	printf("Enter the radius of the Meteor in m\n");
+	double radius;
+	scanf("%lf",&radius);
 	double volume = 4/3 * 3.1459 * (radius*radius*radius); // Assuming meteor is sphere
 	double length = radius * 2;
 
 	double density = mass / volume;
 
-	double initDistance = atof(argv[2]) + earthRadius;  // meters
+	printf("Enter the fall distance of the Meteor in m\n");
+	double initDistance;
+	scanf("%lf",&initDistance);
+	initDistance += earthRadius;
 	double distance = initDistance;
 
-	double initVel = atof(argv[3]);		// m/2
+	printf("Enter the inital velocity of the Meteor in m/2\n");
+	double initVel;
+	scanf("%lf",&initVel);
 	double vel = initVel;
 
 	double initTime = 0;	// seconds
@@ -45,7 +50,7 @@ int main (int argc, char* argv[])
 	double impactForce = 0; // Newtons
 	double impactDepth = 0; // m
 
-	fprintf(output,"TIMELINE\n mass		distance	time	velocity	kenetic energy		acceleration\n");
+	fprintf(output,"TIMELINE\n mass		distance	time	velocity	kenetic energy		acceleration		atmosphere\n");
 
 	// Drop point
 	acceleration = gravity;
@@ -65,14 +70,24 @@ int main (int argc, char* argv[])
 			impactForce = keneticE / (distance - earthRadius);  // Calculate the force of impact the object has on the earths surface
 			impactDepth = (density / earthCrustDensity) * length;
 
+
 			simTime++;  // increase simTime by one second
 			//Display Information to Terminal
-			fprintf(output," %.2fkg      %.2fm       %.2fs      %.2fm/s      %.2fj       %.8fm/s\n", mass, distance - earthRadius, simTime, vel, keneticE, acceleration);
+			fprintf(output," %.2fkg      %.2fm      	 %.2fs      %.2fm/s     	 %.2fj       %.8fm/s		", mass, distance - earthRadius, simTime, vel, keneticE, acceleration);
+			if (distance - earthRadius <= 10000 && distance - earthRadius > 0)
+				fprintf(output,"Troposphere\n");	
+			if (distance - earthRadius <= 50000 && distance - earthRadius > 10000)
+				fprintf(output,"Stratosphere\n");
+			if (distance - earthRadius <= 85000 && distance - earthRadius > 50000)
+				fprintf(output,"Mesosphere\n");	
+			if (distance - earthRadius <= 1000000 && distance - earthRadius > 85000)
+				fprintf(output,"Thermosphere\n");	
+			
 	}
 
 		// Print out final results and stats
 		fprintf(output,"\n\nFINAL RESULTS\n");
-		fprintf(output," Impact Force: %.2f Newtons\n Distance: %.2f Meters\n Time: %.2f Seconds\n Depth: %.2f\n",impactForce, atof(argv[2]), simTime, impactDepth);
+		fprintf(output," Density: %.5f grams per cubic centimeter\n Impact Force: %.5f Newtons\n Distance: %.5f Meters\n Time: %.5f Seconds\n Depth: %.5f meters into the earths crust\n",density/1000, impactForce, atof(argv[2]), simTime, impactDepth);
 
 	fclose(output);
 	return 0; }
