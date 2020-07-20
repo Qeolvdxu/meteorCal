@@ -1,0 +1,21 @@
+TIMELINE
+ mass		distance	time	velocity	kenetic energy		acceleration		atmosphere
+ 100.00kg      999.00m      	 1.00s      0.00m/s     	 0.00j       9.79999692m/s		Troposphere
+ 100.00kg      989.20m      	 2.00s      9.80m/s     	 4801.99j       9.79999385m/s		Troposphere
+ 100.00kg      959.80m      	 3.00s      19.60m/s     	 19207.96j       9.79999077m/s		Troposphere
+ 100.00kg      910.80m      	 4.00s      29.40m/s     	 43217.89j       9.79998769m/s		Troposphere
+ 100.00kg      842.20m      	 5.00s      39.20m/s     	 76831.76j       9.79998462m/s		Troposphere
+ 100.00kg      754.00m      	 6.00s      49.00m/s     	 120049.55j       9.79998154m/s		Troposphere
+ 100.00kg      646.20m      	 7.00s      58.80m/s     	 172871.24j       9.79997846m/s		Troposphere
+ 100.00kg      518.80m      	 8.00s      68.60m/s     	 235296.82j       9.79997539m/s		Troposphere
+ 100.00kg      371.80m      	 9.00s      78.40m/s     	 307326.26j       9.79997231m/s		Troposphere
+ 100.00kg      205.20m      	 10.00s      88.20m/s     	 388959.56j       9.79996923m/s		Troposphere
+ 100.00kg      19.00m      	 11.00s      98.00m/s     	 480196.68j       9.79996616m/s		Troposphere
+
+
+FINAL RESULTS
+ Density: 0.03179 grams per cubic centimeter
+ Impact Force: -3110.55416 Newtons
+ Distance: 0.00000 Meters
+ Time: 12.00000 Seconds
+ Depth: 22.46460 meters into the earths crust

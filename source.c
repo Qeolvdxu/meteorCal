@@ -17,9 +17,10 @@ int main (int argc, char* argv[])
 
 	int atmosphere = -1; //layers of atmosphere, 0 = Troposphere, 3 = Thermosphere
 
-	printf("Enter the radius of the Meteor in m\n");
+	printf("Enter the radius of the Meteor in centimeters\n");
 	double radius;
 	scanf("%lf",&radius);
+	radius = radius * 100;
 	double volume = 4/3 * 3.1459 * (radius*radius*radius); // Assuming meteor is sphere
 	double length = radius * 2;
 
@@ -73,7 +74,8 @@ int main (int argc, char* argv[])
 
 			simTime++;  // increase simTime by one second
 			//Display Information to Terminal
-			fprintf(output," %.2fkg      %.2fm      	 %.2fs      %.2fm/s     	 %.2fj       %.8fm/s		", mass, distance - earthRadius, simTime, vel, keneticE, acceleration);
+			if(distance > earthRadius)
+				fprintf(output," %.2fkg      %.2fm      	 %.2fs      %.2fm/s     	 %.2fj       %.8fm/s		", mass, distance - earthRadius, simTime, vel, keneticE, acceleration);
 			if (distance - earthRadius <= 10000 && distance - earthRadius > 0)
 				fprintf(output,"Troposphere\n");	
 			if (distance - earthRadius <= 50000 && distance - earthRadius > 10000)
@@ -84,6 +86,7 @@ int main (int argc, char* argv[])
 				fprintf(output,"Thermosphere\n");	
 			
 	}
+	distance = impactDepth * -1;
 
 		// Print out final results and stats
 		fprintf(output,"\n\nFINAL RESULTS\n");
