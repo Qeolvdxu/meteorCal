@@ -8,7 +8,7 @@ int main (int argc, char* argv[])
 	FILE *output = fopen("output.txt","w");
 
 	// Initialize, calculate, and collect variables
-	printf("Enter the mass of the Meteor in kg\n");
+	printf("Enter the mass of the Meteor in kilograms\n");
 	double mass;// kilograms
 	scanf("%lf",&mass);
 	const double earthMass = 5.972 * pow(10, 24);
@@ -17,22 +17,21 @@ int main (int argc, char* argv[])
 
 	int atmosphere = -1; //layers of atmosphere, 0 = Troposphere, 3 = Thermosphere
 
-	printf("Enter the radius of the Meteor in centimeters\n");
+	printf("Enter the radius of the Meteor in meters\n");
 	double radius;
 	scanf("%lf",&radius);
-	radius = radius * 100;
 	double volume = 4/3 * 3.1459 * (radius*radius*radius); // Assuming meteor is sphere
 	double length = radius * 2;
 
 	double density = mass / volume;
 
-	printf("Enter the fall distance of the Meteor in m\n");
+	printf("Enter the fall distance of the Meteor in meters\n");
 	double initDistance;
 	scanf("%lf",&initDistance);
 	initDistance += earthRadius;
 	double distance = initDistance;
 
-	printf("Enter the inital velocity of the Meteor in m/2\n");
+	printf("Enter the inital velocity of the Meteor in meters per second\n");
 	double initVel;
 	scanf("%lf",&initVel);
 	double vel = initVel;
@@ -90,7 +89,7 @@ int main (int argc, char* argv[])
 
 		// Print out final results and stats
 		fprintf(output,"\n\nFINAL RESULTS\n");
-		fprintf(output," Density: %.5f grams per cubic centimeter\n Impact Force: %.5f Newtons\n Distance: %.5f Meters\n Time: %.5f Seconds\n Depth: %.5f meters into the earths crust\n",density/1000, impactForce, atof(argv[2]), simTime, impactDepth);
+		fprintf(output," Density: %.5f grams per cubic centimeter\n Impact Force: %.5f Newtons\n Distance: %.5f Meters\n Time: %.5f Seconds\n Depth: %.5f meters into the earths crust\n",density/1000, impactForce * -1, atof(argv[2]), simTime, impactDepth);
 
 	fclose(output);
 	return 0; }
