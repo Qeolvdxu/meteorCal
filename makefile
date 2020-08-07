@@ -1,4 +1,4 @@
 FILE=source.c
 CC=gcc
 main: $(FILE) 
-	$(CC) -o meteorSim $(FILE) -lm
+	$(CC) -o meteorCal $(FILE) -lm

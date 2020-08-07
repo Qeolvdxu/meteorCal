@@ -1,4 +1,4 @@
-MeteorSim calculates user data for Meteors falling towards a planets surface. 
+MeteorCal calculates user data for Meteors falling towards a planets surface. 
 The data output will be located in the same directory as the executable as output.txt
 
 
